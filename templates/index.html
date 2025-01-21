@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Visualization Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Major+Mono+Display&family=Playwrite+VN:wght@100..400&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/static/favicon/favicon.ico">
+    <script>
+        function addGraph() {
+            const graphForm = document.querySelector('.graph-form');
+            const newGraphForm = graphForm.cloneNode(true);
+            document.querySelector('#graph-container').appendChild(newGraphForm);
+        }
+    </script>
+<body>
+    <header>
+        <div class="outer-nav">
+            <div class="idx-logo">
+                <img src="/static/images/dash-logo.png" alt="Logo">
+            </div>
+
+            <div class="idx-menu">
+                <div class="idx-home nav">
+                    <img src="/static/images/logo/house-door.svg" alt="logo">
+                    <a href="/">Home</a>
+                </div>
+                <div class="idx-home nav">
+                    <img src="/static/images/logo/arrow-clockwise.svg" alt="logo">
+                    <a href="/">Restart</a>
+                </div>
+                <div class="dashboard nav">
+                    <img src="/static/images/logo/speedometer2.svg" alt="logo">
+                    <a href="/visualize">Dashboard</a>
+                </div>
+                <div class="idx-profile nav">
+                    <img src="/static/images/logo/person-circle.svg" alt="logo">
+                    <a href="#profile">Profile</a>
+                </div>
+
+            </div>
+
+        </div>
+    </header>
+    <div class="idx-body">
+        <h1 class="idx-heading">Data Visualization Dashboard</h1>
+        <div class="idx-main">
+            <h2 class="idx-h2">Select the Requirements</h2>
+            <form action="/visualize" method="post">
+                <div id="graph-container">
+                    <div class="graph-form">
+                        <label for="x-axis" class="x-axis">Select X-Axis:</label>
+                        <select name="x-axis">
+                            {% for col in columns %}
+                            <option value="{{ col }}">{{ col }}</option>
+                            {% endfor %}
+                        </select>
+                
+                        <label for="y-axis" class="y-axis">Select Y-Axis:</label>
+                        <select name="y-axis">
+                            {% for col in columns %}
+                            <option value="{{ col }}">{{ col }}</option>
+                            {% endfor %}
+                        </select>
+                        <br><br>
+                    </div>
+                    
+                </div>
+                
+                <br><br>
+
+                <button type="button" onclick="addGraph()" class="btn-add">Add Another Graph</button>
+                <button type="submit" class="idx-visual">Visualize</button>
+            </form>
+            <h2 class="idx-h2">Upload New Dataset</h2>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <button type="submit" class="idx-upload">Upload</button>
+            </form>
+        </div>
+    </div>
+    <footer class="idx-footer">
+        <p>&copy; 2025 Data Visualizer | Done by Vishvak</p>
+    </footer>
+    
+</body>
+</html>
